@@ -39,21 +39,7 @@
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Designation : {{$item->designation}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Fee : {{$item->fee}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Address : {{$item->address}}</li>
-                            {{-- <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">
-                                Shedules : 
-                                <ul>
-                                    @foreach (json_decode($item->weeklyInspec,true) as $key=>$data)
-                                        <li>{{$key}} :
-                                            <ol>
-                                                @foreach ($data as $time)
-                                                    <li> {{$time[0]}} To {{$time[1]}}</li>                                   
-                                                @endforeach
-                                            </ol>
-                                        </li>
-                                    @endforeach
-                                    
-                                </ul>
-                            </li> --}}
+                            
                             <div class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
                                 <button class="px-5 py-2 border-pink-400 border text-red-500 rounded transition duration-300 hover:bg-pink-9000 hover:text-white focus:outline-none">
                                     <a href="{{route('patient.create.appointment').'/'.$item->id}}">Create Appointment</a>
