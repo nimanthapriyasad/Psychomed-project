@@ -6,7 +6,7 @@
                 <div class="min-w-full mt-6">
                     <div class="bg-white">
                         @foreach ($doctors as $item)
-                        <h1 class="mt-20"><b> {{ $loop->index + 1 }}.</b>  </h1>
+                        <h1 class="mt-20"><b style="color: black"> {{ $loop->index + 1 }}.</b>  </h1>
                         <ul>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                 <div class="text-sm leading-5 text-pink-900">Doctor's Name :  {{$item->name}}</div>

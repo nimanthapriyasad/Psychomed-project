@@ -6,8 +6,7 @@ use App\Http\Controllers\Auth\Admin\RegisteredAdminController;
 use App\Http\Controllers\Auth\Doctor\RegisteredDoctorController;
 use App\Http\Controllers\Auth\Patient\RegisteredPatientController;
 use Illuminate\Http\Request;
-use App\Events\PrescriptionUploadEvent;
-
+use App\Http\Controllers\BotManController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,17 +47,34 @@ Route::get('register/success', function () {
 })->name('register.success');
 
 
-// Route::get('/MortivationVideo','PagesController@videos');
-//              return view('videos');
-
-/*
-Route::get('event', function () {
-     return \event(new PrescriptionUploadEvent(23));
-});
-*/
+Route::get('/MortivationVideo', function () {
+        return view('videos');
+        })->name('videos');
+        
 
 
-//admin
+
+//PDF GENERATE
+
+
+
+//PAYMENT GATEWAY
+Route::get('/payment', function () {
+        return view('payment');
+    });
+
+
+Route::post('/stripe', [StripeController::class,'stripePyament'])->name("stripe.post");
+
+//BOTMAN
+Route::get('/botman',[BotManController::class,"handle"]);
+Route::post('/botman',[BotManController::class,"handle"]);
+Route::match(['get', 'post'], '/botman', [BotManController::class,"handle"]);
+
+
+
+
+//ADMIN
 Route::get('/dashboard/admin',[RegisteredAdminController::class,'show'])
         ->middleware(['auth','admin']);
 Route::get('/dashboard/admin/show/patient',[RegisteredAdminController::class,'show_patient'])
@@ -94,7 +110,7 @@ Route::get('/admin/patient/data/all',[RegisteredAdminController::class,'patient_
 
 Route::get('users',[App\Http\Controllers\Admin\UserController::class,'index']);       
 
-//doctor
+//DOCTOR
 Route::get('/dashboard/doctor',[RegisteredDoctorController::class,'show'])
         ->middleware(['auth','doctor']);
 Route::get('/dashboard/doctor/appointment',[RegisteredDoctorController::class,'show_appointment'])
@@ -128,7 +144,7 @@ Route::post('/dashboard/doctor/edit',[RegisteredDoctorController::class,'post_ed
         ->middleware(['auth','doctor']);
 
 
-//patient       
+//PATIENT
 Route::get('/dashboard/patient',[RegisteredPatientController::class,'show'])
         ->middleware(['auth','patient']);
 
@@ -143,29 +159,28 @@ Route::get('/dashboard/patient/create/appointment/{doctor_id?}',[RegisteredPatie
 Route::post('/dashboard/patient/create/appointment',[RegisteredPatientController::class,'store_appointment'])
         ->middleware(['auth','patient']);
 
-Route::get('/dashboard/patient/upload/prescription',[RegisteredPatientController::class,'upload_prescription'])
-        ->middleware(['auth','patient'])->name('patient.upload.prescription');
-Route::post('/dashboard/patient/upload/prescription',[RegisteredPatientController::class,'post_upload_prescription'])
-        ->middleware(['auth','patient']);
-Route::get('/dashboard/patient/show/prescription',[RegisteredPatientController::class,'show_prescription'])
-        ->middleware(['auth','patient'])->name('patient.show.prescription');
+
 
 Route::get('/dashboard/patient/search/disease',[RegisteredPatientController::class,'search_disease'])
         ->middleware(['auth','patient'])->name('patient.search.disease');
 Route::post('/dashboard/patient/search/disease',[RegisteredPatientController::class,'post_search_disease'])
         ->middleware(['auth','patient']);
 
-Route::get('/dashboard/patient/check/disease',[RegisteredPatientController::class,'check_disease'])
-        ->middleware(['auth','patient'])->name('patient.check.disease');
-Route::post('/dashboard/patient/check/disease',[RegisteredPatientController::class,'post_check_disease'])
-        ->middleware(['auth','patient']);
 
 Route::get('/dashboard/patient/edit',[RegisteredPatientController::class,'edit_patient'])
         ->middleware(['auth','patient'])->name('patient.edit');
 Route::post('/dashboard/patient/edit',[RegisteredPatientController::class,'post_edit_patient'])
         ->middleware(['auth','patient']);
 
-//chating
+Route::get('/dashboard/patient/report',[RegisteredPatientController::class,'generate_report'])
+        ->middleware(['auth','patient'])->name('patient.report');
+Route::get('/dashboard/patient/payment',[RegisteredPatientController::class,'payment'])
+        ->middleware(['auth','patient'])->name('patient.payment');
+
+
+
+
+//CHATTING
 Route::get('/dashboard/patient/chat/list',[RegisteredPatientController::class,'patient_chat_list'])
         ->middleware(['auth','patient'])->name('patient.chat.list');
 
@@ -176,7 +191,7 @@ Route::post('/dashboard/patient/chat',[RegisteredPatientController::class,'post_
         ->middleware(['auth','patient'])->name('patient.chat.post');
         
 
-//dashboard
+//DASHBORD
 Route::get('/dashboard',function(Request $request){
     return redirect('/dashboard/'.$request->user()->role);
 })->middleware(['auth'])->name('dashboard');

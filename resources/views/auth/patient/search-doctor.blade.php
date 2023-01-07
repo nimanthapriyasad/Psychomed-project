@@ -26,7 +26,7 @@
                 <div class="min-w-full mt-6">
                     <div class="bg-white">
                         @foreach ($doctors as $item)
-                        <h1 class="mt-20"><b> {{ $loop->index + 1 }}.Doctor's informations </b>  </h1>
+                        <h1 class="mt-20"><b style="color: black"> {{ $loop->index + 1 }}.Doctor's informations </b>  </h1>
                         <ul>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
                                 <div class="text-sm leading-5 text-pink-900">Fullname : {{$item->name}}</div>
@@ -41,7 +41,7 @@
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Address : {{$item->address}}</li>
                             
                             <div class="px-6 py-4 whitespace-no-wrap text-right border-b border-gray-500 text-sm leading-5">
-                                <button class="px-5 py-2 border-pink-400 border text-red-500 rounded transition duration-300 hover:bg-pink-9000 hover:text-white focus:outline-none">
+                                <button class="px-5 py-2 border-pink-400 border text-red-500 rounded transition duration-300 hover:bg-pink-900 hover:text-white focus:outline-none">
                                     <a href="{{route('patient.create.appointment').'/'.$item->id}}">Create Appointment</a>
                                 </button>
                             </div>

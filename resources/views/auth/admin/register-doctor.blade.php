@@ -82,7 +82,7 @@
             </div>
 
             <div class="mt-4">
-                <x-label for="address" :value="__('')" />
+                <x-label for="address" :value="__('Address')" />
                 <x-textarea id="address" class="block mt-1 w-full"
                                 rows="3" cols="4"
                                 name="address" required />

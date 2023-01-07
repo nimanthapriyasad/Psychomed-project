@@ -8,7 +8,7 @@ use App\Models\User;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Appointment;
-use App\Models\Prescription;
+
 
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -157,36 +157,7 @@ class RegisteredAdminController extends Controller
             ->get();
         return view('auth.admin.show-doctor')->with('doctors',$doctors);
     }
-    public function upload_approve_admin()
-    {
-        $prescriptions = DB::table('prescriptions')
-            ->select('prescriptions.id as id','prescriptions.upload_date as upload_date', 'prescriptions.path as path',)
-            ->where('prescriptions.approved','=',false)
-            ->get();
-        return \view('auth.admin.upload-approve')->with('prescriptions',$prescriptions);
-    }
-    public function post_upload_approve_admin(Request $request)
-    {
-        $request->validate([
-            'prescription_id' => 'required|integer'
-        ]);
-
-        $pres = Prescription::find($request->prescription_id);
-        $pres->approved = true;
-        $pres->save();
-
-        return \redirect(\route('admin.upload.approve'));
-    }
-    public function upload_data_all()
-    {
-        $num = DB::table('prescriptions')
-        ->select('prescriptions.id as id')
-        ->where('prescriptions.approved','=',false)
-        ->get()
-        ->count();
-
-        return $num;
-    }
+ 
     public function patient_approve_admin()
     {
         $patients = DB::table('users')

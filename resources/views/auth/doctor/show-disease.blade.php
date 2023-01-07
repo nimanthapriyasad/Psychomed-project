@@ -7,7 +7,7 @@
                 <div class="min-w-full mt-6">
                     <div class="bg-white">
                         @foreach ($diseases as $item)
-                        <h1 class="mt-20"><b> {{ $loop->index + 1 }}.Disease informations </b>  </h1>
+                        <h1 class="mt-20"><b style="color: black"> {{ $loop->index + 1 }}.Disease informations </b>  </h1>
                         <ul>
                             <li class="px-6 py-4 whitespace-no-wrap border-b text-pink-900 border-gray-500 text-sm leading-5">Disease's Name : {{$item->disease_name}}</td>
                             <li class="px-6 py-4  border-b text-pink-900 border-gray-500">Disease's Symtoms : {{$item->symptoms}}</td>

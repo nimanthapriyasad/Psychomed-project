@@ -45,12 +45,7 @@ Broadcast::channel('message.{roomIdentity}', function ($user, $roomIdentity) {
     return false;
 });
 
-Broadcast::channel('prescription-upload', function ($user) {
-    if($user->role == "admin"){
-        return true;
-    }
-    return false;
-});
+
 
 Broadcast::channel('patient-register', function ($user) {
     if($user->role == "admin"){

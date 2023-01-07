@@ -95,7 +95,7 @@ class RegisteredDoctorController extends Controller
         $temp = $temp."}";
 
         if(strlen($temp) < 27){
-            return \view('auth.admin.register-doctor')->withErrors(["Shedules"=>"please, add at least 1 Appointment Shedules"]);
+            return \view('auth.admin.register-doctor')->with(["Shedules"=>"please, add at least 1 Appointment Shedules"]);
         }
         
        $user = User::create([
@@ -173,16 +173,12 @@ class RegisteredDoctorController extends Controller
                         ->where('appointments.patient_id','=',$patient_id)
                         ->where('appointments.doctor_id','=',Auth::user()->doctor->id)
                         ->get();
-
-        $prescriptions = DB::table('prescriptions')
-            ->select('upload_date as date', 'path')
-            ->where('patient_id','=',$patient_id)
-            ->get();
-
+        
         return \view('auth.doctor.detail-appointment')
         ->with('patient',$patient)
-        ->with('appoinments',$appoinments)
-        ->with('prescriptions',$prescriptions);
+        ->with('appoinments',$appoinments);
+
+     
     }
     public function create_disease()
     {

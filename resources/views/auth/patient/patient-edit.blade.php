@@ -68,7 +68,7 @@
                 <x-label for="mobileNumber" :value="__('Mobile Number')" />
 
                 <x-input id="mobileNumber" class="block mt-1 w-full"
-                                type="tel" placeholder="+8801761572186"
+                                type="tel" placeholder="+94 716543570"
                                 name="mobileNumber" value="{{$patient->mobileNumber}}" required />
             </div>
 

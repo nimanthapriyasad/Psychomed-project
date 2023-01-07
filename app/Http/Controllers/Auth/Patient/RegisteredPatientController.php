@@ -7,11 +7,11 @@ use App\Models\User;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Appointment;
-use App\Models\Prescription;
+
 use App\Models\Message;
 use App\Models\ChatRoom;
 
-use App\Events\PrescriptionUploadEvent;
+
 use App\Events\MessageEvent;
 use App\Events\PatientRegisterEvent;
 
@@ -90,7 +90,7 @@ class RegisteredPatientController extends Controller
             'mobileNumber' =>$patient->mobileNumber
         ];
 
-        broadcast(new PatientRegisterEvent($pat));
+        // broadcast(new PatientRegisterEvent($pat));
         
         return redirect(\route('register.success'));
     }
@@ -108,6 +108,7 @@ class RegisteredPatientController extends Controller
             ->first();
         return \view('auth.patient.dashboard')->with('patient',$patient);
     }
+    
     public function create_appointment($doctor_id)
     {
         if(empty($doctor_id)){
@@ -222,75 +223,22 @@ class RegisteredPatientController extends Controller
             ->get();
         return \view('auth.patient.search-disease')->with('diseases',$diseases);
     }
-    public function upload_prescription()
+    public function generate_report()
     {
-        return \view('auth.patient.upload-prescription');
+        $patient = DB::table('patients')
+            ->join('users','users.id','=','patients.user_id')
+            ->select('users.name as name',)
+            ->where('patients.id','=',Auth::user()->patient->id)
+            ->get()
+            ->first();
+        return \view('auth.patient.report')->with('patient',$patient);
     }
-    public function post_upload_prescription(Request $request)
+
+    public function payment()
     {
-        $request->validate([
-            'prescription_file' => 'required|file|mimes:jpeg,bmp,png,jpg'
-        ]);
-        if ($request->hasFile('prescription_file')) {
-
-            $request->prescription_file->store('prescription', 'public');
-
-            $pres = Prescription::create([
-                'patient_id'=> Auth::user()->patient->id,
-                'upload_date' => now(),
-                'path'=> $request->prescription_file->hashName(),
-                'approved'=>false
-            ]);
-
-            broadcast(new PrescriptionUploadEvent($pres));
-
-        }
-
-        return redirect(RouteServiceProvider::HOME);
-
+        return \view('auth.patient.payment');
     }
-    public function show_prescription()
-    {
-        $prescriptions = DB::table('prescriptions')
-            ->select('upload_date as date', 'path')
-            ->where('patient_id','=',Auth::user()->patient->id)
-            ->where('approved','=',true)
-            ->get();
-        return \view('auth.patient.show-prescriptions')->with('prescriptions',$prescriptions);
-    }
-    public function check_disease()
-    {
-        $symptoms =  DB::table('diseases')
-            ->select('symptoms')
-            ->get();
-        $arr=[];
-        foreach ($symptoms as $item) {
-            $temp = preg_split("/[1-9]+[ ]*[.]/i", $item->symptoms);
-            for ($i=1; $i<count($temp) ; $i++) { 
-                array_push($arr, trim($temp[$i]));
-            }
-        }
-        $arr = array_unique($arr);
-        return \view('auth.patient.check-disease')->with('arr',$arr);
-    }
-    public function post_check_disease(Request $request)
-    {
-        $q="";
-        for ($i=0;; $i++) {
-            if($request->input('sym_'.$i)!== null && !empty($request->input('sym_'.$i))){
-                $q=$request->input('sym_'.$i);
-                break;
-            }
-        }
-        $diseases = DB::table('diseases')
-            ->join('doctors','diseases.doctor_id','=','doctors.id')
-            ->join('users','users.id','=','doctors.user_id')
-            ->select('diseases.name as disease_name','diseases.symptoms as symptoms','users.name as doctor_name',
-            'doctors.designation as designation','doctors.id as id','doctors.diseaseSpecialist as specialist')
-            ->orWhere('diseases.symptoms','LIKE','%'.$q.'%')
-            ->get();
-        return \view('auth.patient.check-disease')->with('diseases',$diseases);
-    }
+
     public function edit_patient()
     {
         $patient = DB::table('patients')
@@ -396,6 +344,7 @@ class RegisteredPatientController extends Controller
         ->first();
 
         broadcast(new MessageEvent($message,$roomIdentity->room_identity))->toOthers();
+        
 
         return $message->toArray();
     }

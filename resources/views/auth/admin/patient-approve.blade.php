@@ -29,7 +29,7 @@
                                             <form action="{{ route('admin.patient.approve') }}" method="post">
                                                 @csrf
                                                 <input type="hidden" name="user_id" x-bind:value="patient.id">
-                                                <button type="submit" class="px-5 py-2 border-blue-500 border text-blue-500 rounded transition duration-300 hover:bg-blue-700 hover:text-white focus:outline-none">
+                                                <button type="submit" class="px-5 py-2 border-pink-500 border text-pink-500 rounded transition duration-300 hover:bg-pink-700 hover:text-white focus:outline-none">
                                                     accept
                                                 </button>
                                             </form>

@@ -26,10 +26,10 @@
                 <div class="min-w-full mt-6">
                     <div class="bg-white">
                         @foreach ($doctors as $item)
-                        <h1 class="mt-20"><b> {{ $loop->index + 1 }}.Doctor's informations </b>  </h1>
+                        <h1 class="mt-20" style="color: brown"><b> {{ $loop->index + 1 }}.Doctor's informations </b>  </h1>
                         <ul>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
-                                <div class="text-sm leading-5 text-pinke-900">Fullname : {{$item->name}}</div>
+                                <div class="text-sm leading-5 text-pink-900">Fullname : {{$item->name}}</div>
                             </li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b text-pink-900 border-gray-500 text-sm leading-5">Email : {{$item->email}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b text-pink-900 border-gray-500 text-sm leading-5">Phone : {{$item->mobileNumber}}</li>
@@ -39,21 +39,7 @@
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Designation : {{$item->designation}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Fee : {{$item->fee}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Address : {{$item->address}}</li>
-                            {{-- <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">
-                                Shedules : 
-                                <ul>
-                                    @foreach (json_decode($item->weeklyInspec,true) as $key=>$data)
-                                        <li>{{$key}} :
-                                            <ol>
-                                                @foreach ($data as $time)
-                                                    <li> {{$time[0]}} To {{$time[1]}}</li>                                   
-                                                @endforeach
-                                            </ol>
-                                        </li>
-                                    @endforeach
-                                    
-                                </ul>
-                            </li> --}}
+                           
                             </ul>    
                         @endforeach
                         </div>

@@ -73,29 +73,7 @@
                         </x-nav-link>
                     </div>
                     
-                    <div class="flex justify-center mt-6"
-                    x-data="{noti_count:0}"
-                    x-init="
-                            axios.get('{{route('admin.upload.data')}}')
-                                .then((response) => {
-                                    noti_count=response.data;
-                            });
-                            Echo.private('prescription-upload')
-                                .listen('PrescriptionUploadEvent', (prescription) => {
-                                    noti_count++;
-                                });
-                            "
-                    >
-                        <span class="text-pink-700 inline-block relative">
-                            <i class="fas fa-bell fa-3x"></i>
-                            <div class="rounded-full h-8 w-8 bg-red-600 absolute top-0 left-5">
-                                <span class="text-gray-200 pl-2 p-1" x-text="noti_count"></span>
-                            </div>
-                        </span>
-                        <x-nav-link class="ml-6" :href="route('admin.upload.approve')" :active="request()->routeIs('admin.upload.approve')">
-                            {{ __('Approve Upload  Request') }}
-                        </x-nav-link>
-                    </div>
+                
                     
                 </div>
             </div>

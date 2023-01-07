@@ -26,7 +26,7 @@
                 <div class="min-w-full mt-6">
                     <div class="bg-white">
                         @foreach ($patients as $item)
-                        <h1 class="mt-20"><b> {{ $loop->index + 1 }}.Patient's informations</b>  </h1>
+                        <h1 class="mt-20"style="color: brown"><b> {{ $loop->index + 1 }}.Patient's informations</b>  </h1>
 
                         <ul>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500">
@@ -37,7 +37,7 @@
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Date Of Birth : {{$item->dateOfBirth}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Sex : {{$item->sex}}</li>
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Marital Status : {{$item->maritalStatus}}</li>
-                           
+ 
                             <li class="px-6 py-4 whitespace-no-wrap border-b border-gray-500 text-pink-900 text-sm leading-5">Address : {{$item->address}}</li>
                              
 
