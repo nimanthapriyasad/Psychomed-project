@@ -1,0 +1,24 @@
+1. First install Xampp 8.0 update
+2. composer install
+3.Open xampp and apache, MySQL should be start
+4.follow the following step on VS code terminal
+
+php artisan storage:link
+Create mysql hospital management
+php artisan db:seed
+php artisan migrate:fresh
+npm run dev
+npm install
+composer install
+composer require pusher/pusher-php-server
+php artisan cache:clear
+php artisan config:clear
+php artisan route:clear
+php artisan serve
+
+[Admin email: al@gmail.com
+Admin Password : password]
+
+Any problem contact me 
+nimaa927@gmail.com
+
