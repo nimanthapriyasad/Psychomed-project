@@ -14,3 +14,5 @@ php artisan route:clear
 adimin password and email
 al@gmail.com
 password
+
+xampp 8.0 or below
