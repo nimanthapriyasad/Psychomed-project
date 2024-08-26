@@ -16,3 +16,5 @@ al@gmail.com
 password
 
 xampp 8.0 or below
+laravel fw
+mysql
